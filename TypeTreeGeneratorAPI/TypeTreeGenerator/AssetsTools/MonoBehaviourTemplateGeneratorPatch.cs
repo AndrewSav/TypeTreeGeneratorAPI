@@ -18,7 +18,10 @@ namespace TypeTreeGeneratorAPI.TypeTreeGenerator.AssetsTools
 #if ENABLE_IL2CPP
     public class Cpp2IlTempGeneratorPatch : Cpp2IlTempGenerator, IMonoBehaviourTemplateGeneratorPatch
     {
-        public Cpp2IlTempGeneratorPatch() : base("", "")
+        // The paths are never used: LibCpp2Il is initialized by the API before SetInitialized
+        // is called. Newer AssetsTools.NET reads the files in the (string, string) constructor,
+        // so that overload can no longer take empty paths; the byte[] one only stores them.
+        public Cpp2IlTempGeneratorPatch() : base(Array.Empty<byte>(), Array.Empty<byte>())
         {
         }
         public void SetInitialized(bool initialized)
